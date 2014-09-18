@@ -1,0 +1,60 @@
+#include<iostream>
+#include<list>
+#include<queue>
+using namespace std;
+class graph
+{
+    int n;
+    list<int> *adj;
+public:
+    graph(int n);
+    void addEdge(int v,int w);
+    void BFS(int s);
+};
+graph::graph(int n)
+{
+    this->n=n;
+    adj=new list<int>[n];
+}
+void graph::addEdge(int v,int w)
+{
+    adj[v].push_back(w);
+}
+void graph::BFS(int s)
+{
+    int j;
+    list<int>::iterator i;
+    bool *visited=new bool[n];
+    for(j=0;j<n;j++)
+        visited[j]=false;
+    queue<int> q;
+    q.push(s);
+    while(!q.empty())
+    {
+        s=q.front();
+        cout<<s<<" ";
+        q.pop();
+        visited[s]=true;
+        for(i=adj[s].begin();i!=adj[s].end();i++)
+        {
+            if(!visited[*i])
+            {
+                q.push(*i);
+            }
+        }
+    }
+}
+int main()
+{
+    int i,n,m,v,w,s;
+    cin>>n>>m;
+    graph g(n);
+    for(i=0;i<m;i++)
+    {
+        cin>>v>>w;
+        g.addEdge(v,w);
+    }
+    cin>>s;
+    g.BFS(s);
+    return 0;
+}
