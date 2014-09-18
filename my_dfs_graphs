@@ -1,0 +1,52 @@
+#include<iostream>
+#include<list>
+using namespace std;
+class graph
+{
+    int n;
+    list<int> *adj;
+    void DFSUtil(int v,bool visited[]);
+public:
+    graph(int n);
+    void addEdge(int v,int w);
+    void DFS(int v);
+};
+graph::graph(int n)
+{
+    this->n=n;
+    adj=new list<int>[n];
+}
+void graph::addEdge(int v,int w)
+{
+    adj[v].push_back(w);
+}
+void graph::DFSUtil(int v,bool visited[])
+{
+    visited[v]=true;
+    cout<<v<<" ";
+    list<int>::iterator i;
+    for(i=adj[v].begin();i!=adj[v].end();i++)
+        if(!visited[*i])
+            DFSUtil(*i,visited);
+}
+void graph::DFS(int v)
+{
+    int i;
+    bool *visited=new bool[n];
+    for(i=0;i<n;i++)
+        visited[i]=false;
+    DFSUtil(v,visited);
+}
+int main()
+{
+    int i,n,m,v,w,root;
+    cin>>n>>m;
+    graph g(n);
+    for(i=0;i<m;i++)
+    {
+        cin>>v>>w;
+        g.addEdge(v,w);
+    }
+    cin>>root;
+    g.DFS(root);
+}
