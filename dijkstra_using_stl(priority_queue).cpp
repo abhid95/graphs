@@ -9,7 +9,7 @@ class Prioritize
 public:
     int operator() ( const pair<int, int>& p1, const pair<int, int>& p2 )
     {
-        return p1.second < p2.second;
+        return p1.second > p2.second;
     }
 };
 int main()
