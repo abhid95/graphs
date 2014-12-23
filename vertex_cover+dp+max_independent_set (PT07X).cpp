@@ -17,7 +17,7 @@ using namespace std;
 int dp[2][100005];
 vector<int> adj[100005];
 queue<int> q;
-int func(int u,int par,int opt)
+int func(int u,int par,int opt)//dfs
 {
     int si=0,se=0,i;
     if(dp[opt][u]!=-1)
@@ -27,9 +27,9 @@ int func(int u,int par,int opt)
         if(adj[u][i]!=par)
         {
             if(!opt)
-                se+=max(func(adj[u][i],u,0),func(adj[u][i],u,1)+1);
+                se+=max(func(adj[u][i],u,0),func(adj[u][i],u,1)+1);//if previous vertex not included 2 options
             else
-                si+=func(adj[u][i],u,0);
+                si+=func(adj[u][i],u,0);//if included only 1 option
         }
     }
     return dp[opt][u]=max(se,si);
